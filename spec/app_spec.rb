@@ -39,7 +39,7 @@ describe "Twitter Info" do
     
     last_response.status.should == 200
     last_response.body.should match(/burtlo/)
-    last_response.body.should match(/h1.\d+..h1/)
+    last_response.body.should match(/h\d.Followers= \d+..h\d/)
     #puts last_response.body
   end  
 
@@ -75,7 +75,7 @@ describe "Twitter Info" do
     #puts "GOT==#{last_response.body}"
     last_response.status.should == 200
     last_response.body.should match(/burtlo/)
-    last_response.body.should match(/h1.Last tweet: .*..h1/)
+    last_response.body.should match(/h\d.Last tweet: .*..h\d/)
 
   end
 
