@@ -25,7 +25,7 @@ class TwitterInfo < Sinatra::Application
     rescue Twitter::Error => e
       
       #puts "Username #{@user}"
-      #puts e.message
+      @error = e.message
       status 404
       haml :_404
       

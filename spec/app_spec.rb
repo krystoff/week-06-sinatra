@@ -60,7 +60,7 @@ describe "Twitter Info" do
     get '/user/DOES_NOT_EXIST_____'
     
     #puts "GOT==#{last_response.body}"
-    last_response.body.should match(/Caps-Lock on.  Invalid username provided/)
+    last_response.body.should match(/Caps-Lock on.  Invalid username /)
     last_response.status.should == 404
 
   end
