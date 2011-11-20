@@ -33,8 +33,15 @@ describe "Twitter Info" do
   ##
   # this spec needs to be written.
   #
-  it "should display the user's follower count for any valid username"
-
+  it "should display the user's follower count for any valid username" do
+    
+    get '/user/burtlo'
+    
+    last_response.status.should == 200
+    last_response.body.should match(/burtlo/)
+    last_response.body.should match(/h1.\d+..h1/)
+    #puts last_response.body
+  end  
 
 
   ##
@@ -48,7 +55,28 @@ describe "Twitter Info" do
   #
   # when that happens, return a new template file named 404.haml
   #
-  it "should return a custom 404 page when the username cannot be found"
+  it "should return a custom 404 page when the username cannot be found" do
+    
+    get '/user/DOES_NOT_EXIST_____'
+    
+    #puts "GOT==#{last_response.body}"
+    last_response.body.should match(/Caps-Lock on.  Invalid username provided/)
+    last_response.status.should == 404
 
+  end
+  
+  #
+  ## bonus/optional feature/spec test
+  #
+  it "should return the user's most recent tweet" do
+    
+    get '/user/burtlo'
+    
+    #puts "GOT==#{last_response.body}"
+    last_response.status.should == 200
+    last_response.body.should match(/burtlo/)
+    last_response.body.should match(/h1.Last tweet: .*..h1/)
+
+  end
 
 end

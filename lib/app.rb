@@ -13,12 +13,24 @@ class TwitterInfo < Sinatra::Application
   get '/user/:username' do
 
     @user = params[:username]
-    user_id = Twitter.user(@user).id
-    followers = Twitter.follower_ids(user_id).ids
-    @num_followers = followers.length
-
-    haml :followers
-
+    
+    begin
+      user_id = Twitter.user(@user).id
+      followers = Twitter.follower_ids(user_id).ids
+      @num_followers = followers.length
+      @last_tweet = Twitter.user_timeline("#{@user}").first.text
+  
+      haml :followers
+      
+    rescue Twitter::Error => e
+      
+      #puts "Username #{@user}"
+      #puts e.message
+      status 404
+      haml :_404
+      
+    end
+    
   end
 
   post // do
